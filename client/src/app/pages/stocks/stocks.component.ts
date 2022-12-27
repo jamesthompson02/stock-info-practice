@@ -18,7 +18,7 @@ export class StocksComponent {
   // }
 
   columnDefs: ColDef[] = [
-    {field: 'name', resizable: true},
+    {field: 'name', resizable: true, width: 500},
     {field: 'symbol'},
     {field: 'exchange'},
     {field: 'ipoDate'},
