@@ -1,0 +1,12 @@
+.navbar-spacing {
+    display: flex;
+    justify-content: space-between;
+}
+
+.responsive-button {
+    display: block;
+}
+
+.new-width {
+    max-width: 18rem;
+}
