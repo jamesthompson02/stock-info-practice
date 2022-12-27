@@ -11,6 +11,7 @@ import { StocksComponent } from './pages/stocks/stocks.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
 
 
  
@@ -23,7 +24,8 @@ import { FooterComponent } from './components/footer/footer.component';
     StocksComponent,
     AboutComponent,
     ContactComponent,
-    FooterComponent
+    FooterComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
