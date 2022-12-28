@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
-import stocks from '../../../../../server/data/stocks.json';
+import stocks from '../../../../../server/data/filteredStocks.json';
 import { Stock } from 'src/app/interfaces/stock';
 
 @Component({

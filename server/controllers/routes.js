@@ -28,6 +28,13 @@ router.get('/', (req, res) => {
         
 //     }
 //     getStockData();
+
+//     const yellowStone = async () => {
+//         const { data } = await axios.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=ysac-u&apikey=${apiKey}');
+//         console.log(data);
+//     }
+//     yellowStone();
+    
 //     res.send("Test");
 // })
 

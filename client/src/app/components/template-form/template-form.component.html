@@ -1,0 +1,13 @@
+<form class="form-border text-center" (ngSubmit)="onSubmit(searchForm)" #searchForm="ngForm">
+    <h2 class="text-center">Search For a Stock</h2>
+    <div class="form-group mt-3 text-start">
+      <label for="tickerSymbol">Ticker Symbol:</label>
+      <input #tickerSymbol type="text" class="form-control my-2" 
+        id="tickerSymbol" name="tickerSymbol"
+        [value]="tickerValue" (input)="onInput(tickerSymbol.value)" 
+        ngModel required>
+    </div>
+    <p>Unsure what the ticker symbol is? Click <a href="/stocks">here</a> for the list of stocks 
+        we provide information on and their ticker symbols.</p>
+    <button type="submit" class="btn btn-success" [disabled]="!tickerInputStatus">Search</button>
+</form>

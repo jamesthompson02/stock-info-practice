@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
+import { FormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
@@ -14,6 +15,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { TemplateFormComponent } from './components/template-form/template-form.component';
 
 
  
@@ -28,12 +30,14 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     ContactComponent,
     FooterComponent,
     HeaderComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    TemplateFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AgGridModule
+    AgGridModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
