@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const urlEncodedParser = bodyParser.urlencoded({extended: false});
 const { writeFile } = require('fs');
 require('dotenv').config()
 const apiKey = process.env.API_KEY;
@@ -10,6 +11,8 @@ const axios = require('axios');
 router.use(cors());
 
 router.use(express.json());
+
+// Get routes
 
 router.get('/', (req, res) => {
     res.status(200).send(`<h1>Home page</h1>`);
@@ -37,6 +40,13 @@ router.get('/', (req, res) => {
     
 //     res.send("Test");
 // })
+
+// Post routes
+
+router.post('/api/stock', urlEncodedParser, (req, res) => {
+    console.log(req.body);
+    res.json("Received request");
+})
 
 
 router.all('*', (req, res) => {
