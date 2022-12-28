@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 import tickerSymbols from '../../../../../server/data/tickerSymbols.json';
 
 @Component({
@@ -8,6 +9,10 @@ import tickerSymbols from '../../../../../server/data/tickerSymbols.json';
   styleUrls: ['./template-form.component.css']
 })
 export class TemplateFormComponent {
+
+  constructor(private http: HttpClient) {
+    
+  }
   
   tickerValue: string = "";
   tickerSymbol: string = "";
