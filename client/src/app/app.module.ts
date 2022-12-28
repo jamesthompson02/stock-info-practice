@@ -13,6 +13,7 @@ import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 
  
@@ -26,7 +27,8 @@ import { HeaderComponent } from './components/header/header.component';
     AboutComponent,
     ContactComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

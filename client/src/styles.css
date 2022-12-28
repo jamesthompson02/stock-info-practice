@@ -2,6 +2,7 @@
 @import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 .page-body-container {
+    height: calc(100vh - 45px);
     min-height: calc(100vh - 45px);
     display: flex;
     flex-direction: column;
