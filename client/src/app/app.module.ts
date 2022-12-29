@@ -4,6 +4,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { counterReducer } from './reducers/counter.reducer';
 
 
 import { AppComponent } from './app.component';
@@ -17,6 +19,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { TemplateFormComponent } from './components/template-form/template-form.component';
+import { MyCounterComponent } from './components/my-counter/my-counter.component';
 
 
  
@@ -32,14 +35,16 @@ import { TemplateFormComponent } from './components/template-form/template-form.
     FooterComponent,
     HeaderComponent,
     NotFoundComponent,
-    TemplateFormComponent
+    TemplateFormComponent,
+    MyCounterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AgGridModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({ count: counterReducer })
   ],
   providers: [],
   bootstrap: [AppComponent]

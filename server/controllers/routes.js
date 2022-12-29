@@ -44,9 +44,13 @@ router.get('/', (req, res) => {
 // Post routes
 
 router.post('/api/stock', urlEncodedParser, (req, res) => {
-    console.log(req.body);
+    const { stock } = req.body;
+    console.log(stock);
     res.json("Received request");
 })
+
+
+// Error 404 route
 
 
 router.all('*', (req, res) => {
