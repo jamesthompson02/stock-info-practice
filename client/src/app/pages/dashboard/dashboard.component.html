@@ -1,6 +1,5 @@
 <div class="page-body-container py-3">
     <app-header text="Research a Stock Here!"></app-header>
-    <app-template-form></app-template-form>
-    <app-my-counter></app-my-counter>
- 
+    <app-template-form *ngIf="!(reduxSearchTerm$ | async)"></app-template-form>
+    <app-widget-container *ngIf="(reduxSearchTerm$ | async)"></app-widget-container>
 </div>

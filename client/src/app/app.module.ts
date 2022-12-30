@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { counterReducer } from './state/counter/counter.reducer';
+import { searchReducer } from './state/search/search.reducer';
 
 
 import { AppComponent } from './app.component';
@@ -20,6 +21,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { TemplateFormComponent } from './components/template-form/template-form.component';
 import { MyCounterComponent } from './components/my-counter/my-counter.component';
+import { WidgetContainerComponent } from './components/widget-container/widget-container.component';
+import { GrowthWidgetComponent } from './components/growth-widget/growth-widget.component';
+import { ValueWidgetComponent } from './components/value-widget/value-widget.component';
 
 
  
@@ -36,7 +40,10 @@ import { MyCounterComponent } from './components/my-counter/my-counter.component
     HeaderComponent,
     NotFoundComponent,
     TemplateFormComponent,
-    MyCounterComponent
+    MyCounterComponent,
+    WidgetContainerComponent,
+    GrowthWidgetComponent,
+    ValueWidgetComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +51,7 @@ import { MyCounterComponent } from './components/my-counter/my-counter.component
     AgGridModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({ counter: counterReducer })
+    StoreModule.forRoot({ counter: counterReducer, search: searchReducer })
   ],
   providers: [],
   bootstrap: [AppComponent]

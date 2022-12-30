@@ -3,14 +3,14 @@ import { Store } from '@ngrx/store';
 import { selectSearchStateCounter } from 'src/app/state/search/search.selectors';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-value-widget',
+  templateUrl: './value-widget.component.html',
+  styleUrls: ['./value-widget.component.css']
 })
-export class DashboardComponent {
-  
+export class ValueWidgetComponent {
+
   reduxSearchTerm$ = this.store.select(selectSearchStateCounter);
 
-  constructor(private store: Store){}
+  constructor(private store: Store) {}
 
 }
