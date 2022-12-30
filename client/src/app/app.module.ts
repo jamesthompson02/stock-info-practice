@@ -5,7 +5,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
-import { counterReducer } from './reducers/counter.reducer';
+import { counterReducer } from './state/counter/counter.reducer';
 
 
 import { AppComponent } from './app.component';
@@ -44,7 +44,7 @@ import { MyCounterComponent } from './components/my-counter/my-counter.component
     AgGridModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({ count: counterReducer })
+    StoreModule.forRoot({ counter: counterReducer })
   ],
   providers: [],
   bootstrap: [AppComponent]
