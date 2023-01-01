@@ -24,6 +24,7 @@ import { MyCounterComponent } from './components/my-counter/my-counter.component
 import { WidgetContainerComponent } from './components/widget-container/widget-container.component';
 import { GrowthWidgetComponent } from './components/growth-widget/growth-widget.component';
 import { ValueWidgetComponent } from './components/value-widget/value-widget.component';
+import { WidgetContainerFormComponent } from './components/widget-container-form/widget-container-form.component';
 
 
  
@@ -43,7 +44,8 @@ import { ValueWidgetComponent } from './components/value-widget/value-widget.com
     MyCounterComponent,
     WidgetContainerComponent,
     GrowthWidgetComponent,
-    ValueWidgetComponent
+    ValueWidgetComponent,
+    WidgetContainerFormComponent
   ],
   imports: [
     BrowserModule,

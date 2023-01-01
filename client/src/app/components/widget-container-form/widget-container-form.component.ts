@@ -1,33 +1,21 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
 import tickerSymbols from '../../../../../server/data/tickerSymbols.json';
 
 
 import { newSearch } from 'src/app/state/search/search.actions';
 import { Store } from '@ngrx/store';
 
-
-
 @Component({
-  selector: 'app-template-form',
-  templateUrl: './template-form.component.html',
-  styleUrls: ['./template-form.component.css']
+  selector: 'app-widget-container-form',
+  templateUrl: './widget-container-form.component.html',
+  styleUrls: ['./widget-container-form.component.css']
 })
-export class TemplateFormComponent {
+export class WidgetContainerFormComponent {
 
-  constructor(private http: HttpClient, private store: Store) {
+  constructor(private store: Store) {
     
   }
-
-  header1 = new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
-  options = {
-    headers: this.header1
-  }
-
 
   tickerValue: string = "";
   tickerValueLowerCase: string = "";

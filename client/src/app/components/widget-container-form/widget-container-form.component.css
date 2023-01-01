@@ -1,0 +1,20 @@
+.widget-form-container  {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+.widget-form-border {
+    border-bottom: 1px solid black;
+    padding: 1rem;
+}
+
+.widget-form-flex {
+    width: 45vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.widget-form-input {
+    width: 30vw;
+}

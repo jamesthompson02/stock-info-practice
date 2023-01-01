@@ -1,0 +1,10 @@
+<form class="widget-form-border widget-form-container" (ngSubmit)="onSubmit(widgetSearchForm)" #widgetSearchForm="ngForm">
+    <div class="form-group mt-3 text-start widget-form-flex">
+      <label for="tickerSymbol">Ticker Symbol:</label>
+      <input #widgetTickerSymbol type="text" class="form-control my-2 widget-form-input" 
+        id="widgetTickerSymbol" name="widgetTickerSymbol"
+        [value]="tickerValue" (input)="onInput(widgetTickerSymbol.value)" 
+        ngModel required>
+      <button type="submit" class="btn btn-success" [disabled]="!tickerInputStatus">Search</button>
+    </div>  
+</form>

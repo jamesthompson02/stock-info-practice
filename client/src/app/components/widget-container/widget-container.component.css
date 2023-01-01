@@ -1,0 +1,12 @@
+.widget-container-div {
+    width: calc(100vw - 20px);
+    border: 1px solid black;
+    border-radius: 10px;
+    min-height: calc(100vh - 45px);
+}
+
+.widgets-flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
