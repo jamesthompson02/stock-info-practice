@@ -43,10 +43,14 @@ router.get('/', (req, res) => {
 
 // Post routes
 
-router.post('/api/stock', urlEncodedParser, (req, res) => {
+router.post('/api/stock/growth', urlEncodedParser, (req, res) => {
     const { stock } = req.body;
-    console.log(stock);
-    res.json("Received request");
+    res.json(`${stock} received by growth url endpoint`);
+})
+
+router.post('/api/stock/value', urlEncodedParser, (req, res) => {
+    const { stock } = req.body;
+    res.json(`${stock} received by value url endpoint`)
 })
 
 

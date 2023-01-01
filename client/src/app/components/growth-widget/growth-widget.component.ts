@@ -23,11 +23,11 @@ export class GrowthWidgetComponent {
   }
 
   subscription = this.reduxSearchTerm$.subscribe(data => {
-    console.log(data);
+    this.apiCall(data);
   })
 
   apiCall( stockName: string ) {
-    this.http.post('http://localhost:5000/api/stock', JSON.stringify({stock: stockName}), this.options)
+    this.http.post('http://localhost:5000/api/stock/growth', JSON.stringify({stock: stockName}), this.options)
     .subscribe((res) => {
       console.log(res);
     })
