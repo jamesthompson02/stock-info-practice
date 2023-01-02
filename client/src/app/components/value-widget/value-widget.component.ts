@@ -16,11 +16,11 @@ export class ValueWidgetComponent {
 
   
   reduxSearchTerm$ = this.store.select(selectSearchStateCounter);
-  name$ =  null;
-  priceToEarnings$ = null;
-  pegRatio$ = null;
-  priceToBook$ = null;
-  debtToEquity$ = null;
+  name =  null;
+  priceToEarnings = null;
+  pegRatio = null;
+  priceToBook = null;
+  debtToEquity = null;
 
   header1 = new HttpHeaders({
     'Content-Type': 'application/json'
@@ -49,11 +49,11 @@ export class ValueWidgetComponent {
       newObj.pegRatio = arr2[2];
       newObj.priceToBook = arr2[3];
       newObj.debtToEquity = arr2[4];
-      this.debtToEquity$ = newObj.debtToEquity;
-      this.name$ = newObj.name;
-      this.pegRatio$ = newObj.pegRatio;
-      this.priceToEarnings$ = newObj.priceToEarnings;
-      this.priceToBook$ = newObj.priceToBook;
+      this.debtToEquity = newObj.debtToEquity;
+      this.name = newObj.name;
+      this.pegRatio = newObj.pegRatio;
+      this.priceToEarnings = newObj.priceToEarnings;
+      this.priceToBook = newObj.priceToBook;
       
 
     })

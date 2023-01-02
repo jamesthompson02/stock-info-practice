@@ -51,19 +51,31 @@ router.post('/api/stock/growth', urlEncodedParser, async (req, res) => {
 
 router.post('/api/stock/value', urlEncodedParser, async (req, res) => {
     const { stock } = req.body;
-    const { data } = await axios.get(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${stock}&apikey=${apiKey}`);
-    const { Name, PERatio, PEGRatio, PriceToBookRatio } = data;
-    const data1 = await axios.get(`https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=${stock}&apikey=${apiKey2}`);
-    const { totalAssets, totalLiabilities } = data1.data.annualReports[0];
-    let debtToEquity = parseInt(totalLiabilities) / (parseInt(totalAssets) - parseInt(totalLiabilities));
-    debtToEquity = debtToEquity.toFixed(2);
-    res.json({
-        name: Name,
-        priceToEarnings: parseFloat(PERatio).toFixed(2),
-        pegRatio: parseFloat(PEGRatio).toFixed(2),
-        priceToBook: parseFloat(PriceToBookRatio).toFixed(2),
-        debtToEquity: debtToEquity
-    });
+    try {
+        const { data } = await axios.get(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${stock}&apikey=${apiKey}`);
+        const { Name, PERatio, PEGRatio, PriceToBookRatio } = data;
+        const data1 = await axios.get(`https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=${stock}&apikey=${apiKey2}`);
+        const { totalAssets, totalLiabilities } = data1.data.annualReports[0];
+        let debtToEquity = parseInt(totalLiabilities) / (parseInt(totalAssets) - parseInt(totalLiabilities));
+        debtToEquity = debtToEquity.toFixed(2);
+        res.json({
+            name: Name,
+            priceToEarnings: parseFloat(PERatio).toFixed(2),
+            pegRatio: parseFloat(PEGRatio).toFixed(2),
+            priceToBook: parseFloat(PriceToBookRatio).toFixed(2),
+            debtToEquity: debtToEquity
+        }) 
+
+    } catch (err) {
+        res.json({
+            name: "error",
+            priceToEarnings: "error",
+            pegRatio: "error",
+            priceToBook: "error",
+            debtToEquity: "error"
+        })
+    }
+    
     
 })
 
