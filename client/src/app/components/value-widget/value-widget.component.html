@@ -1,4 +1,8 @@
 <div class="value-widget-container">
-    <p>{{reduxSearchTerm$ | async }}</p>
+    <app-widget-header text="Key Value metrics for {{ name$ }}"></app-widget-header>
+    <p>Price to Earnings Ratio: {{ priceToEarnings$ }}</p>
+    <p>Price to Book Ratio: {{ priceToBook$ }}</p>
+    <p>Price/Earnings to Growth Ratio: {{ pegRatio$ }}</p>
+    <p>Debt to Equity Ratio: {{ debtToEquity$ }}</p>
 
 </div>

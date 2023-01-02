@@ -25,6 +25,7 @@ import { WidgetContainerComponent } from './components/widget-container/widget-c
 import { GrowthWidgetComponent } from './components/growth-widget/growth-widget.component';
 import { ValueWidgetComponent } from './components/value-widget/value-widget.component';
 import { WidgetContainerFormComponent } from './components/widget-container-form/widget-container-form.component';
+import { WidgetHeaderComponent } from './components/widget-header/widget-header.component';
 
 
  
@@ -45,7 +46,8 @@ import { WidgetContainerFormComponent } from './components/widget-container-form
     WidgetContainerComponent,
     GrowthWidgetComponent,
     ValueWidgetComponent,
-    WidgetContainerFormComponent
+    WidgetContainerFormComponent,
+    WidgetHeaderComponent
   ],
   imports: [
     BrowserModule,
