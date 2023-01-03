@@ -3,5 +3,6 @@ export interface Response1 {
     priceToEarnings: string | null,
     pegRatio: string | null,
     priceToBook: string | null,
-    debtToEquity: string | null
+    debtToEquity: string | null,
+    roe: string | number | null
 }

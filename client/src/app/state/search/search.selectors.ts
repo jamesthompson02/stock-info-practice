@@ -7,3 +7,11 @@ export const selectSearchStateCounter = createSelector(
     selectAppStateCounter,
     (state: SearchState) => state.searchTerm
 );
+export const roeSearchStateCounter = createSelector(
+    selectAppStateCounter,
+    (state: SearchState) => state.ROE
+);
+export const nameSearchStateCounter = createSelector(
+    selectAppStateCounter,
+    (state: SearchState) => state.name
+);

@@ -5,6 +5,16 @@ export const newSearch = createAction(
     props<{ payload: string }>()
 )
 
+export const newROE = createAction(
+    '[Value Widget Component] ROE',
+    props<{ payload: string | number }>()
+)
+
+export const newName = createAction(
+    '[Value Widget Component] Name',
+    props<{ payload: string }>()
+)
+
 export const loading = createAction(
     '[Dashboard Search Form] Loading'
 )

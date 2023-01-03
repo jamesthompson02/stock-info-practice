@@ -50,16 +50,13 @@ router.get('/', (req, res) => {
 router.post('/api/stock/growth', urlEncodedParser, async (req, res) => {
     const { stock } = req.body;
     try {
-        const { data } = await axios.get(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${stock}&apikey=${apiKey3}`);
         const data1 = await axios.get(`https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=${stock}&apikey=${apiKey4}`);
         const data2 = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${stock}&apikey=${apiKey5}`);
+    
         let quarterly = data1.data.quarterlyReports;
-        console.log(quarterly);
-        console.log(quarterly[0]);
         let sharePriceKey = Object.values(data2.data['Monthly Time Series']);
         let netIncomeGrowth;
         let preTaxMarginGrowth;
-        let returnOnEquity = data.ReturnOnEquityTTM;
         let sharePriceGrowthPercentage;
 
         if (Object.keys(data2.data['Monthly Time Series']).length > 60) {
@@ -75,8 +72,6 @@ router.post('/api/stock/growth', urlEncodedParser, async (req, res) => {
 
             netIncomeGrowth = parseInt(quarterly[0].netIncome) - parseInt(quarterly[(quarterly.length -1)].netIncome);
 
-            // Note: pretaxmargingrowth variable calculation is 4 lines long!
-
             const recentInvestmentIncome = parseInt(quarterly[0].investmentIncomeNet) || 0;
             const recentOtherNonOperatingIncome = parseInt(quarterly[0].otherNonOperatingIncome) || 0;
             const recentInterestExpense = parseInt(quarterly[0].interestExpense) || 0;
@@ -84,6 +79,7 @@ router.post('/api/stock/growth', urlEncodedParser, async (req, res) => {
             const oldOtherNonOperatingIncome = parseInt(quarterly[(quarterly.length - 1)].otherNonOperatingIncome) || 0;
             const oldInterestExpense = parseInt(quarterly[(quarterly.length - 1)].interestExpense) || 0;
 
+            // Note: pretaxmargingrowth variable calculation is 4 lines long!
 
             preTaxMarginGrowth = (parseInt(quarterly[0].operatingIncome) + recentInvestmentIncome
             - recentInterestExpense + recentOtherNonOperatingIncome) -
@@ -102,10 +98,8 @@ router.post('/api/stock/growth', urlEncodedParser, async (req, res) => {
 
         }
         res.json({
-            name: data.Name,
             preTaxMarginGrowth: preTaxMarginGrowth,
             netIncomeGrowth: netIncomeGrowth,
-            ROE: returnOnEquity,
             sharePriceGrowth: sharePriceGrowthPercentage
         });
     } catch (err) {
@@ -113,10 +107,8 @@ router.post('/api/stock/growth', urlEncodedParser, async (req, res) => {
         console.log(err);
 
         res.json({
-            name: "error",
             preTaxMarginGrowth: "error",
             netIncomeGrowth: "error",
-            ROE: "error",
             sharePriceGrowth: "error"
         });
 
@@ -128,7 +120,7 @@ router.post('/api/stock/value', urlEncodedParser, async (req, res) => {
     const { stock } = req.body;
     try {
         const { data } = await axios.get(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${stock}&apikey=${apiKey}`);
-        const { Name, PERatio, PEGRatio, PriceToBookRatio } = data;
+        const { Name, PERatio, PEGRatio, PriceToBookRatio, ReturnOnEquityTTM } = data;
         const data1 = await axios.get(`https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=${stock}&apikey=${apiKey2}`);
         const { totalAssets, totalLiabilities } = data1.data.annualReports[0];
         let debtToEquity = parseInt(totalLiabilities) / (parseInt(totalAssets) - parseInt(totalLiabilities));
@@ -138,7 +130,8 @@ router.post('/api/stock/value', urlEncodedParser, async (req, res) => {
             priceToEarnings: parseFloat(PERatio).toFixed(2),
             pegRatio: parseFloat(PEGRatio).toFixed(2),
             priceToBook: parseFloat(PriceToBookRatio).toFixed(2),
-            debtToEquity: debtToEquity
+            debtToEquity: debtToEquity,
+            roe: ReturnOnEquityTTM
         }) 
 
     } catch (err) {
