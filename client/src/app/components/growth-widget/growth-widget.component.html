@@ -1,5 +1,8 @@
 <div class="growth-widget-container">
-    <p>{{reduxSearchTerm$ | async }}</p>
-
+    <app-widget-header text="Key Growth metrics for {{ name }}"></app-widget-header>
+    <p>Share Price Growth(%): {{ sharePriceGrowth }}</p>
+    <p>Net Income Growth (millions): {{ netIncomeGrowth }}</p>
+    <p>Pre-Tax Margin Growth (millions): {{ preTaxMarginGrowth }}</p>
+    <p>Return on Equity: {{ ROE }}</p>
 </div>
 

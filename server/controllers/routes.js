@@ -9,6 +9,7 @@ const apiKey = process.env.API_KEY;
 const apiKey2 = process.env.API_KEY_2;
 const apiKey3 = process.env.API_KEY_3;
 const apiKey4 = process.env.API_KEY_4;
+const apiKey5 = process.env.API_KEY_5;
 const axios = require('axios');
 
 router.use(cors());
@@ -51,41 +52,72 @@ router.post('/api/stock/growth', urlEncodedParser, async (req, res) => {
     try {
         const { data } = await axios.get(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${stock}&apikey=${apiKey3}`);
         const data1 = await axios.get(`https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=${stock}&apikey=${apiKey4}`);
-        let quarterly = data1.data.quarterlyReports
+        const data2 = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${stock}&apikey=${apiKey5}`);
+        let quarterly = data1.data.quarterlyReports;
+        console.log(quarterly);
+        console.log(quarterly[0]);
+        let sharePriceKey = Object.values(data2.data['Monthly Time Series']);
         let netIncomeGrowth;
         let preTaxMarginGrowth;
-        console.log(data);
-        console.log(data1.data.quarterlyReports[0]);
+        let returnOnEquity = data.ReturnOnEquityTTM;
+        let sharePriceGrowthPercentage;
+
+        if (Object.keys(data2.data['Monthly Time Series']).length > 60) {
+            sharePriceGrowthPercentage = ((parseFloat(sharePriceKey[0]['4. close']) - parseFloat(sharePriceKey[60]['4. close']))/parseFloat(sharePriceKey[60]['4. close'])) * 100;
+            sharePriceGrowthPercentage = sharePriceGrowthPercentage.toFixed(2);
+        } else {
+
+            sharePriceGrowthPercentage = ((parseFloat(sharePriceKey[0]['4. close']) - parseFloat(sharePriceKey[(Object.keys(data2.data['Monthly Time Series']).length - 1)]['4. close']))/parseFloat(sharePriceKey[(Object.keys(data2.data['Monthly Time Series']).length - 1)]['4. close'])) * 100;
+            sharePriceGrowthPercentage = sharePriceGrowthPercentage.toFixed(2);
+        }
+        // console.log(Object.values(data2.data['Monthly Time Series'])[0]['4. close']);
         if ( quarterly.length > 1) {
 
             netIncomeGrowth = parseInt(quarterly[0].netIncome) - parseInt(quarterly[(quarterly.length -1)].netIncome);
 
             // Note: pretaxmargingrowth variable calculation is 4 lines long!
 
-            preTaxMarginGrowth = (parseInt(quarterly[0].operatingIncome) + parseInt(quarterly[0].investmentIncomeNet)
-            - parseInt(quarterly[0].interestExpense) + parseInt(quarterly[0].otherNonOperatingIncome)) -
-            (parseInt(quarterly[(quarterly.length - 1)].operatingIncome) + parseInt(quarterly[(quarterly.length - 1)].investmentIncomeNet)
-            - parseInt(quarterly[(quarterly.length - 1)].interestExpense) + parseInt(quarterly[(quarterly.length - 1)].otherNonOperatingIncome));
+            const recentInvestmentIncome = parseInt(quarterly[0].investmentIncomeNet) || 0;
+            const recentOtherNonOperatingIncome = parseInt(quarterly[0].otherNonOperatingIncome) || 0;
+            const recentInterestExpense = parseInt(quarterly[0].interestExpense) || 0;
+            const oldInvestmentIncome = parseInt(quarterly[(quarterly.length - 1)].investmentIncomeNet) || 0;
+            const oldOtherNonOperatingIncome = parseInt(quarterly[(quarterly.length - 1)].otherNonOperatingIncome) || 0;
+            const oldInterestExpense = parseInt(quarterly[(quarterly.length - 1)].interestExpense) || 0;
+
+
+            preTaxMarginGrowth = (parseInt(quarterly[0].operatingIncome) + recentInvestmentIncome
+            - recentInterestExpense + recentOtherNonOperatingIncome) -
+            (parseInt(quarterly[(quarterly.length - 1)].operatingIncome) + oldInvestmentIncome
+            - oldInterestExpense + oldOtherNonOperatingIncome);
             
-           
+            // console.log(parseInt(quarterly[0].operatingIncome));
+            // console.log(parseInt(quarterly[0].investmentIncomeNet));
+            // console.log(parseInt(quarterly[0].interestExpense));
+            // console.log(parseInt(quarterly[0].otherNonOperatingIncome));
+            // console.log(quarterly[0]);
 
         } else {
             netIncomeGrowth = "Not enough data";
             preTaxMarginGrowth = "Not enough data";
 
         }
-        // console.log(data);
         res.json({
             name: data.Name,
             preTaxMarginGrowth: preTaxMarginGrowth,
-            netIncomeGrowth: netIncomeGrowth
+            netIncomeGrowth: netIncomeGrowth,
+            ROE: returnOnEquity,
+            sharePriceGrowth: sharePriceGrowthPercentage
         });
     } catch (err) {
+
+        console.log(err);
 
         res.json({
             name: "error",
             preTaxMarginGrowth: "error",
-            netIncomeGrowth: "error"
+            netIncomeGrowth: "error",
+            ROE: "error",
+            sharePriceGrowth: "error"
         });
 
 
@@ -110,6 +142,8 @@ router.post('/api/stock/value', urlEncodedParser, async (req, res) => {
         }) 
 
     } catch (err) {
+        console.log(err);
+
         res.json({
             name: "error",
             priceToEarnings: "error",
