@@ -7,6 +7,8 @@ const { writeFile } = require('fs');
 require('dotenv').config()
 const apiKey = process.env.API_KEY;
 const apiKey2 = process.env.API_KEY_2;
+const apiKey3 = process.env.API_KEY_3;
+const apiKey4 = process.env.API_KEY_4;
 const axios = require('axios');
 
 router.use(cors());
@@ -46,7 +48,48 @@ router.get('/', (req, res) => {
 
 router.post('/api/stock/growth', urlEncodedParser, async (req, res) => {
     const { stock } = req.body;
-    res.json(`${stock} received by growth url endpoint`)
+    try {
+        const { data } = await axios.get(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${stock}&apikey=${apiKey3}`);
+        const data1 = await axios.get(`https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=${stock}&apikey=${apiKey4}`);
+        let quarterly = data1.data.quarterlyReports
+        let netIncomeGrowth;
+        let preTaxMarginGrowth;
+        console.log(data);
+        console.log(data1.data.quarterlyReports[0]);
+        if ( quarterly.length > 1) {
+
+            netIncomeGrowth = parseInt(quarterly[0].netIncome) - parseInt(quarterly[(quarterly.length -1)].netIncome);
+
+            // Note: pretaxmargingrowth variable calculation is 4 lines long!
+
+            preTaxMarginGrowth = (parseInt(quarterly[0].operatingIncome) + parseInt(quarterly[0].investmentIncomeNet)
+            - parseInt(quarterly[0].interestExpense) + parseInt(quarterly[0].otherNonOperatingIncome)) -
+            (parseInt(quarterly[(quarterly.length - 1)].operatingIncome) + parseInt(quarterly[(quarterly.length - 1)].investmentIncomeNet)
+            - parseInt(quarterly[(quarterly.length - 1)].interestExpense) + parseInt(quarterly[(quarterly.length - 1)].otherNonOperatingIncome));
+            
+           
+
+        } else {
+            netIncomeGrowth = "Not enough data";
+            preTaxMarginGrowth = "Not enough data";
+
+        }
+        // console.log(data);
+        res.json({
+            name: data.Name,
+            preTaxMarginGrowth: preTaxMarginGrowth,
+            netIncomeGrowth: netIncomeGrowth
+        });
+    } catch (err) {
+
+        res.json({
+            name: "error",
+            preTaxMarginGrowth: "error",
+            netIncomeGrowth: "error"
+        });
+
+
+    }
 })
 
 router.post('/api/stock/value', urlEncodedParser, async (req, res) => {
