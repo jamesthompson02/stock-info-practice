@@ -35,27 +35,12 @@ export class ValueWidgetComponent {
 
   apiCall( stockName: string ) {
     this.http.post('http://localhost:5000/api/stock/value', JSON.stringify({stock: stockName}), this.options)
-    .subscribe((res) => {
-      let arr2 = Object.values(res);
-      let newObj: Response1 = {
-        name: null,
-        priceToEarnings: null,
-        pegRatio: null,
-        priceToBook: null,
-        debtToEquity: null
-      };
-      newObj.name = arr2[0];
-      newObj.priceToEarnings = arr2[1];
-      newObj.pegRatio = arr2[2];
-      newObj.priceToBook = arr2[3];
-      newObj.debtToEquity = arr2[4];
-      this.debtToEquity = newObj.debtToEquity;
-      this.name = newObj.name;
-      this.pegRatio = newObj.pegRatio;
-      this.priceToEarnings = newObj.priceToEarnings;
-      this.priceToBook = newObj.priceToBook;
-      
-
+    .subscribe((res: Response1) => {
+      this.debtToEquity = res.debtToEquity;
+      this.name = res.name;
+      this.pegRatio = res.pegRatio;
+      this.priceToEarnings = res.priceToEarnings;
+      this.priceToBook = res.priceToBook;
     })
   }
 
