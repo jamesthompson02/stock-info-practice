@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import stocks from '../../../../../server/data/filteredStocks.json';
 import { Stock } from 'src/app/interfaces/stock';
+import { selectFilterState } from 'src/app/state/stockFilter/stockFilter.selectors';
+import { Store } from "@ngrx/store";
 
 @Component({
   selector: 'app-stocks',
@@ -10,12 +12,7 @@ import { Stock } from 'src/app/interfaces/stock';
 })
 export class StocksComponent {
 
-  // export interface Stock {
-  //   name: string,
-  //   symbol: string,
-  //   exchange: string,
-  //   ipoDate: string
-  // }
+  constructor( private store: Store ) {}
 
   columnDefs: ColDef[] = [
     {field: 'name', resizable: true, minWidth: 300, maxWidth: 500, sortable: true},
@@ -26,7 +23,27 @@ export class StocksComponent {
   ];
 
   rowData: Stock[] = stocks;
-
   
+  filterReduxTerm$ = this.store.select(selectFilterState);
+
+  filterReduxTermSubscription = this.filterReduxTerm$.subscribe((data: string) => {
+    this.filterRowData(data);
+  })
+
+
+  filterRowData( filterTerm: string) {
+    if (filterTerm.length > 0 ) {
+      const copyOfStocks: Stock[] = [...stocks];
+      let copyOfStocks2: Stock[] = [];
+      for (let each of copyOfStocks) {
+        if (each.name.toLowerCase().includes(filterTerm.toLowerCase())){
+          copyOfStocks2.push(each);
+        }
+      }
+      return this.rowData = copyOfStocks2;
+    } else {
+      return this.rowData = stocks;
+    }
+  }
 
 }

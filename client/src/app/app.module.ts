@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { counterReducer } from './state/counter/counter.reducer';
 import { searchReducer } from './state/search/search.reducer';
+import { filterStockReducer } from './state/stockFilter/stockFilter.reducer';
 
 
 import { AppComponent } from './app.component';
@@ -27,6 +28,7 @@ import { ValueWidgetComponent } from './components/value-widget/value-widget.com
 import { WidgetContainerFormComponent } from './components/widget-container-form/widget-container-form.component';
 import { WidgetHeaderComponent } from './components/widget-header/widget-header.component';
 import { GeneralComponentComponent } from './components/general-component/general-component.component';
+import { StockFilterComponent } from './components/stock-filter/stock-filter.component';
 
 
  
@@ -49,7 +51,8 @@ import { GeneralComponentComponent } from './components/general-component/genera
     ValueWidgetComponent,
     WidgetContainerFormComponent,
     WidgetHeaderComponent,
-    GeneralComponentComponent
+    GeneralComponentComponent,
+    StockFilterComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,7 @@ import { GeneralComponentComponent } from './components/general-component/genera
     AgGridModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({ counter: counterReducer, search: searchReducer })
+    StoreModule.forRoot({ counter: counterReducer, search: searchReducer, filter: filterStockReducer })
   ],
   providers: [],
   bootstrap: [AppComponent]

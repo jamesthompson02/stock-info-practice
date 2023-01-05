@@ -1,0 +1,6 @@
+<div style="margin-bottom: 0.5rem">
+    <h5 class="text-center">Filter</h5>
+    <label for="filterStockInput">Company Name:</label>
+    <input #filterStockInput id="filterStockInput" 
+    type="text" class="input-styler" (input)="updateReduxFilterTerm(filterStockInput.value)"  />
+</div>
