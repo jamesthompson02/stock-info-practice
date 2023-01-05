@@ -15,6 +15,43 @@ export const newName = createAction(
     props<{ payload: string }>()
 )
 
+export const newExchange = createAction(
+    '[Value Widget Component] Exchange',
+    props<{ payload: string }>()
+)
+
+export const newCountry = createAction(
+    '[Value Widget Component] Country',
+    props<{ payload: string }>()
+)
+
+export const newSector = createAction(
+    '[Value Widget Component] Sector',
+    props<{ payload: string }>()
+)
+
+export const newIndustry = createAction(
+    '[Value Widget Component] Industry',
+    props<{ payload: string }>()
+)
+
+export const newYearHigh = createAction(
+    '[Value Widget Component] Year High',
+    props<{ payload: string }>()
+)
+
+export const newYearLow = createAction(
+    '[Value Widget Component] Year Low',
+    props<{ payload: string }>()
+)
+
+export const newFiftyDayMA = createAction(
+    '[Value Widget Component] Fifty day MA',
+    props<{ payload: string }>()
+)
+
+
+
 export const loading = createAction(
     '[Dashboard Search Form] Loading'
 )

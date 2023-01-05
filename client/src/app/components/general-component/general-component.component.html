@@ -1,0 +1,10 @@
+<div class="general-widget-container">
+    <app-widget-header text="General Information On {{ name$ | async }}"></app-widget-header>
+    <p>Exchange: {{ exchange$ | async }}</p>
+    <p>Country: {{ country$ | async }}</p>
+    <p>Sector: {{ sector$ | async }}</p>
+    <p>Industry: {{ industry$ | async }}</p>
+    <p>52 Week High: {{ yearHigh$ | async }}</p>
+    <p>52 Week Low: {{ yearLow$ | async }}</p>
+    <p>50 Day Moving Avarage: {{ fiftyDayMA$ | async }}</p>
+</div>

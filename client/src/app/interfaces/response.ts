@@ -4,5 +4,12 @@ export interface Response1 {
     pegRatio: string | null,
     priceToBook: string | null,
     debtToEquity: string | null,
-    roe: string | number | null
+    roe: string | number | null,
+    exchange: string | null,
+    country: string | null,
+    sector: string | null,
+    industry: string | null,
+    yearHigh: string | null,
+    yearLow: string | null,
+    fiftyDayMA: string | null,
 }

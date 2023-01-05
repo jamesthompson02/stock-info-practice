@@ -120,7 +120,11 @@ router.post('/api/stock/value', urlEncodedParser, async (req, res) => {
     const { stock } = req.body;
     try {
         const { data } = await axios.get(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${stock}&apikey=${apiKey}`);
-        const { Name, PERatio, PEGRatio, PriceToBookRatio, ReturnOnEquityTTM } = data;
+        console.log(data);
+        const { Name, Exchange, Country, Sector, Industry, PERatio, PEGRatio, PriceToBookRatio, ReturnOnEquityTTM } = data;
+        const yearHigh = data['52WeekHigh'];
+        const yearLow = data['52WeekLow'];
+        const fiftyDayMA = data['50DayMovingAverage'];
         const data1 = await axios.get(`https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=${stock}&apikey=${apiKey2}`);
         const { totalAssets, totalLiabilities } = data1.data.annualReports[0];
         let debtToEquity = parseInt(totalLiabilities) / (parseInt(totalAssets) - parseInt(totalLiabilities));
@@ -131,7 +135,14 @@ router.post('/api/stock/value', urlEncodedParser, async (req, res) => {
             pegRatio: parseFloat(PEGRatio).toFixed(2),
             priceToBook: parseFloat(PriceToBookRatio).toFixed(2),
             debtToEquity: debtToEquity,
-            roe: ReturnOnEquityTTM
+            roe: ReturnOnEquityTTM, 
+            exchange: Exchange,
+            country: Country,
+            sector: Sector,
+            industry: Industry,
+            yearHigh: yearHigh,
+            yearLow: yearLow,
+            fiftyDayMA: fiftyDayMA,
         }) 
 
     } catch (err) {
