@@ -45,6 +45,13 @@ router.get('/', (req, res) => {
 //     res.send("Test");
 // })
 
+// const getStockData = async () => {
+//     const { data } = await axios.get(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=JPM&apikey=${apiKey}`);
+//     console.log(JSON.stringify(data));
+// }
+
+// getStockData();
+
 // Post routes
 
 router.post('/api/stock/growth', urlEncodedParser, async (req, res) => {
