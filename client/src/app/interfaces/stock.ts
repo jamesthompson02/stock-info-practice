@@ -1,6 +1,6 @@
 export interface Stock {
-      name: string,
-      symbol: string,
-      exchange: string,
-      ipoDate: string
+      Name: string,
+      Symbol: string,
+      Exchange: string,
+      Description: string
 }

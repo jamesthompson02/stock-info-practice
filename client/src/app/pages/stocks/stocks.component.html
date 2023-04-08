@@ -2,7 +2,17 @@
     <app-header text="Available Stocks"></app-header>
     <p class="paragraph-styler">In case you're unsure whether we provide information for a particular stock, or need to find some general information about a stock (e.g. ticker symbol), look at the table below.</p>
     <app-stock-filter></app-stock-filter>
-    <ag-grid-angular style="width: 100%; height: 100%" class="ag-theme-alpine" [rowData]="rowData" [columnDefs]="columnDefs">
+    <ag-grid-angular 
+    style="width: 100%; height: 100%" 
+    class="ag-theme-material"
+    [gridOptions]="gridOptions"
+    [rowData]="rowData"
+    [defaultColDef]="defaultColumnDefs"
+    [columnDefs]="columnDefs"
+    [rowSelection]="rowSelection"
+    (gridReady)="onGridReady($event)"
+    (gridSizeChanged)="onGridSizeChange($event)"
+    >
     </ag-grid-angular>
 
 </div>
